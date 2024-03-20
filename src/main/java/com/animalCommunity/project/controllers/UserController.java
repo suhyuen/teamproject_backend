@@ -1,6 +1,7 @@
 package com.animalCommunity.project.controllers;
 
 import com.animalCommunity.project.dtos.SignupDto;
+import com.animalCommunity.project.dtos.UserDto;
 import com.animalCommunity.project.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,9 +14,13 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/signup")
-    public void signup(@RequestBody SignupDto signupDto){
-        System.out.println("1");
-        userService.signup(signupDto);
+    @PostMapping("/signup")  // 회원가입
+    public void signup(@RequestBody UserDto userDto){
+        userService.signup(userDto);
+    }
+
+    @PostMapping("/fingId")
+    public String login(@RequestBody UserDto userDto){
+        return userService.login(userDto);
     }
 }
