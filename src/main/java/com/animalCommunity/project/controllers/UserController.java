@@ -24,7 +24,7 @@ public class UserController {
         int retrunValue = userService.exitMember(userDto);
         System.out.println(retrunValue);  // 1이 출력되면 정상 0이 출력되면 오류
         return retrunValue;
-    }
+
     @PostMapping("/userInfo")
     public User userInfo(@RequestBody UserDto userDto){
         return userService.userInfo(userDto);
