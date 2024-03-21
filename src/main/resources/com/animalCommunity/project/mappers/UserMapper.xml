@@ -7,12 +7,15 @@
         INSERT INTO users_tb(user_name, nickname, id, pw, email, adress, animal)
         values  (#{username}, #{nickname}, #{userId},#{userPw},#{email}, #{adress}, #{animal})
     </insert>
-    <select id="login" resultType="com.animalCommunity.project.dtos.UserDto">
-        select id AS userId, pw AS userPw FROM users_tb
-        WHERE id = #{userId} and pw = #{userPw};
-    </select>
-    <select id="findUser">
-        select uid, id AS userId, pw AS userPw, nickname, animal, auth FROM users_tb
+    <select id="login" resultType="com.animalCommunity.project.models.User">
+        select uid, user_name as username, nickname, id as userId, pw as userPw, email, adress, animal, auth, created_at as createAt, deleteyn
+        FROM users_tb
         WHERE id = #{userId};
+    </select>
+    <update id="exitMember">
+        update users_tb set deleteyn = 'Y' where id = #{userId};
+    </update>
+    <select id="userInfo" resultType="com.animalCommunity.project.models.User">
+        select * from users_tb where id = #{userId};
     </select>
 </mapper>
