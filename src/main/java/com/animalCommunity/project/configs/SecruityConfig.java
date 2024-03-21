@@ -1,5 +1,6 @@
 package com.animalCommunity.project.configs;
 
+
 import com.animalCommunity.project.authentication.JwtAuthenticationFilter;
 import com.animalCommunity.project.authentication.LoginAuthenticationFilter;
 import com.animalCommunity.project.authentication.UserNamePasswordAuthenticationProvider;
@@ -20,7 +21,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecruityConfig {
     private final JwtUtil jwtUtil;
     private final UserNamePasswordAuthenticationProvider userNamePasswordAuthenticationProvider;
-
     public SecruityConfig(JwtUtil jwtUtil, UserNamePasswordAuthenticationProvider userNamePasswordAuthenticationProvider) {
         this.jwtUtil = jwtUtil;
         this.userNamePasswordAuthenticationProvider = userNamePasswordAuthenticationProvider;

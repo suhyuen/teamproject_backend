@@ -1,6 +1,5 @@
 package com.animalCommunity.project.controllers;
 
-import com.animalCommunity.project.dtos.SignupDto;
 import com.animalCommunity.project.dtos.UserDto;
 import com.animalCommunity.project.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

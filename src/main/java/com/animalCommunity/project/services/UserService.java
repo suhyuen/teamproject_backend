@@ -30,5 +30,6 @@ public class UserService {
     }
     public int exitMember (UserDto userDto){
         return userMapper.exitMember(userDto); // 마이바티스는 쿼리가 정상처리되면 1을 반환한다.
+
     }
 }
