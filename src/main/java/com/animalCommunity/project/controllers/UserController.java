@@ -1,6 +1,7 @@
 package com.animalCommunity.project.controllers;
 
 import com.animalCommunity.project.dtos.UserDto;
+import com.animalCommunity.project.models.User;
 import com.animalCommunity.project.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,5 +24,9 @@ public class UserController {
         int retrunValue = userService.exitMember(userDto);
         System.out.println(retrunValue);  // 1이 출력되면 정상 0이 출력되면 오류
         return retrunValue;
+
+    @PostMapping("/userInfo")
+    public User userInfo(@RequestBody UserDto userDto){
+        return userService.userInfo(userDto);
     }
 }

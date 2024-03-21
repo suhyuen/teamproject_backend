@@ -7,15 +7,17 @@
         INSERT INTO users_tb(user_name, nickname, id, pw, email, adress, animal)
         values  (#{username}, #{nickname}, #{userId},#{userPw},#{email}, #{adress}, #{animal})
     </insert>
-    <select id="login" resultType="com.animalCommunity.project.models.User">
+    <select id="login" resultType="com.animalCommunity.project.models.User"> <!--  로그인  -->
         select uid, user_name as username, nickname, id as userId, pw as userPw, email, adress, animal, auth, created_at as createAt, deleteyn
         FROM users_tb
         WHERE id = #{userId};
     </select>
-    <update id="exitMember">
+    <update id="exitMember"> <!--  회원탈퇴  -->
         update users_tb set deleteyn = 'Y' where id = #{userId};
     </update>
-    <select id="userInfo" resultType="com.animalCommunity.project.models.User">
-        select * from users_tb where id = #{userId};
+    <select id="userInfo" resultType="com.animalCommunity.project.models.User">  <!--  회원정보조회  -->
+        select uid, user_name as username, nickname, id as userId, pw as userPw, email, adress, animal, auth, created_at as createAt, deleteyn
+        FROM users_tb
+        WHERE id = #{userId};
     </select>
 </mapper>
