@@ -39,6 +39,8 @@ public class SecruityConfig {
                 .requestMatchers(HttpMethod.GET,"/getTest").permitAll()
                 .requestMatchers(HttpMethod.POST,"/postTest2").permitAll()
                 .requestMatchers(HttpMethod.POST,"/signup").permitAll()
+                .requestMatchers(HttpMethod.POST,"/idCheck").permitAll()
+                .requestMatchers(HttpMethod.POST,"/nicknameCheck").permitAll()
                 .requestMatchers(HttpMethod.POST,"/login").permitAll()
                 .requestMatchers(HttpMethod.POST,"/exitMember").hasAnyAuthority("ROLE_USER")
                 .requestMatchers(HttpMethod.POST,"/userInfo").hasAnyAuthority("ROLE_USER")

@@ -7,6 +7,12 @@
         INSERT INTO users_tb(user_name, nickname, id, pw, email, adress, animal)
         values  (#{username}, #{nickname}, #{userId},#{userPw},#{email}, #{adress}, #{animal})
     </insert>
+    <select id="idCheck" resultType="com.animalCommunity.project.dtos.UserDto"> <!--  회원가입시 id 중복조회  -->
+        select id as userId from users_tb where id = #{userId}
+    </select>
+    <select id="nicknameCheck" resultType="com.animalCommunity.project.dtos.UserDto"> <!--  회원가입시 nickname 중복조회  -->
+        select nickname from users_tb where nickname = #{nickname}
+    </select>
     <select id="login" resultType="com.animalCommunity.project.models.User"> <!--  로그인  -->
         select uid, user_name as username, nickname, id as userId, pw as userPw, email, adress, animal, auth, created_at as createAt, deleteyn
         FROM users_tb
