@@ -24,7 +24,7 @@ public class AdminController {
         adminService.adminUpdate(adminDto);
     }
 
-    @DeleteMapping("/adminupdatedelete")
+    @DeleteMapping("/detailpost/delete")
     public void adminupdatedelete(@RequestBody AdminDto adminDto){
         adminService.adminUpdateDelete(adminDto);
     }
