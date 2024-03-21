@@ -19,6 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class SecruityConfig {
+    public static final String ROLE_ADMIN = "ROLE_ADMIN";
     private final JwtUtil jwtUtil;
     private final UserNamePasswordAuthenticationProvider userNamePasswordAuthenticationProvider;
     public SecruityConfig(JwtUtil jwtUtil, UserNamePasswordAuthenticationProvider userNamePasswordAuthenticationProvider) {
@@ -42,6 +43,8 @@ public class SecruityConfig {
                 .requestMatchers(HttpMethod.POST,"/exitMember").hasAnyAuthority("ROLE_USER")
                 .requestMatchers(HttpMethod.POST,"/userInfo").hasAnyAuthority("ROLE_USER")
                 .requestMatchers(HttpMethod.POST,"/userInfoUpdate").hasAnyAuthority("ROLE_USER")
+                .requestMatchers(HttpMethod.POST,"/adminwrite").hasAnyAuthority("ROLE_ADMIN")
+                .requestMatchers(HttpMethod.POST,"/updateadminpost").hasAnyAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated());
         return http.build();
     }
