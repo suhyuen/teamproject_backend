@@ -13,5 +13,6 @@ public interface UserMapper {
     void addUser(User user);  //회원가입
     Optional<User> login(String userId); //로그인
     int exitMember(UserDto userDto); //회원탈퇴
-    User userInfo (User user);
+    User userInfo (User user); // 회원정보조회
+    int userInfoUpdate (User user); //회원정보수정
 }

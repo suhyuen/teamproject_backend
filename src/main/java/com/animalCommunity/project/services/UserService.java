@@ -40,4 +40,16 @@ public class UserService {
         User users = userMapper.userInfo(user);
         return users;
     }
+    @Builder(builderMethodName = "userInfoUpdateBuilder")
+    public int userInfoUpdate (UserDto userDto){
+        User user = User.builder()
+                .userId(userDto.getUserId())
+                .username(userDto.getUsername())
+                .nickname(userDto.getNickname())
+                .email(userDto.getEmail())
+                .adress(userDto.getAdress())
+                .animal(userDto.getAnimal())
+                .build();
+        return userMapper.userInfoUpdate(user);
+    }
 }
