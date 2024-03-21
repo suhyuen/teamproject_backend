@@ -15,4 +15,5 @@ public class UserDto {
     private String email;
     private String adress;
     private String animal;  // dog, cat, etc
+    private String Role;
 }

@@ -15,7 +15,7 @@ public class UserService {
     @Autowired
     UserMapper userMapper;
 
-    @Builder
+    @Builder(builderMethodName = "signupBuilder")
     public void signup(UserDto userDto){  // 회원가입
         User user = User.builder()
                 .username(userDto.getUsername())
@@ -28,8 +28,16 @@ public class UserService {
                 .build();
         userMapper.addUser(user);
     }
-    public int exitMember (UserDto userDto){
+    public int exitMember (UserDto userDto){ //회원탈퇴
         return userMapper.exitMember(userDto); // 마이바티스는 쿼리가 정상처리되면 1을 반환한다.
+    }
 
+    @Builder(builderMethodName = "userInfoBuilder")  // 빌더를 여러개 사용하려면 이름을 지어줘야 충돌하지 않는다.
+    public User userInfo (UserDto userDto) {
+        User user = User.builder()
+                .userId(userDto.getUserId())
+                .build();
+        User users = userMapper.userInfo(user);
+        return users;
     }
 }
