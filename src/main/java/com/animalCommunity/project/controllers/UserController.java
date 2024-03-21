@@ -29,4 +29,8 @@ public class UserController {
     public User userInfo(@RequestBody UserDto userDto){
         return userService.userInfo(userDto);
     }
+    @PostMapping("/userInfoUpdate")
+    public int userInfoUpdate (@RequestBody UserDto userDto){
+        return userService.userInfoUpdate(userDto);
+    }
 }

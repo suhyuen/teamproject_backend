@@ -20,4 +20,8 @@
         FROM users_tb
         WHERE id = #{userId};
     </select>
+    <update id="userInfoUpdate"> <!--  회원정보수정  -->
+        update users_tb set user_name = #{username}, nickname = #{nickname}, email = #{email}, adress = #{adress}, animal = #{animal}
+        where id = #{userId};
+    </update>
 </mapper>
