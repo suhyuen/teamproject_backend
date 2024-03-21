@@ -65,4 +65,13 @@ public class UserService {
                 .build();
         return userMapper.userInfoUpdate(user);
     }
+    @Builder(builderMethodName = "findIdBuilder")
+    public String findId(UserDto userDto){
+        User user = User.builder()
+                .username(userDto.getUsername())
+                .email(userDto.getEmail())
+                .build();
+        String userId = userMapper.findId(user);
+        return userId!=null?userId:"nullValue";
+    }
 }

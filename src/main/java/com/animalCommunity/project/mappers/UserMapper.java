@@ -17,4 +17,5 @@ public interface UserMapper {
     int exitMember(UserDto userDto); //회원탈퇴
     User userInfo (User user); // 회원정보조회
     int userInfoUpdate (User user); //회원정보수정
+    String findId (User user);  // id찾기
 }

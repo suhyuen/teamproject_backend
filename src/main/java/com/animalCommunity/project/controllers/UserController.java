@@ -40,4 +40,8 @@ public class UserController {
     public int userInfoUpdate (@RequestBody UserDto userDto){
         return userService.userInfoUpdate(userDto);
     }
+    @PostMapping("/findId")
+    public String findID(@RequestBody UserDto userDto){
+        return userService.findId(userDto);
+    }
 }
