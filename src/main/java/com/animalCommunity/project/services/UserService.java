@@ -28,7 +28,6 @@ public class UserService {
                 .build();
         userMapper.addUser(user);
     }
-
     public int exitMember (UserDto userDto){ //회원탈퇴
         return userMapper.exitMember(userDto); // 마이바티스는 쿼리가 정상처리되면 1을 반환한다.
     }
