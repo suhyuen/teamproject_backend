@@ -10,6 +10,6 @@ import java.util.Optional;
 @Mapper
 public interface UserMapper {
     void addUser(User user);  //회원가입
-    UserDto login(UserDto userDto);
-    Optional<User> findUser(String userId);
+    Optional<User> login(String userId);
+    int exitMember(UserDto userDto);
 }

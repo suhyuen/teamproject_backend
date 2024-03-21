@@ -11,11 +11,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserNamePasswordAuthenticationProvider implements AuthenticationProvider {
     private final PasswordEncoder passwordEncoder;
-    private final CustomUserDetailsService customUserDetailsService;
+    private final CustomUserDetailService customUserDetailService;
 
-    public UserNamePasswordAuthenticationProvider (PasswordEncoder passwordEncoder, CustomUserDetailsService customUserDetailsService){
+    public UserNamePasswordAuthenticationProvider (PasswordEncoder passwordEncoder, CustomUserDetailService customUserDetailService){
         this.passwordEncoder = passwordEncoder;
-        this.customUserDetailsService = customUserDetailsService;
+        this.customUserDetailService = customUserDetailService;
     }
 
     @Override
@@ -23,10 +23,10 @@ public class UserNamePasswordAuthenticationProvider implements AuthenticationPro
         String userId = String.valueOf(authentication.getPrincipal());
         String userPw = String.valueOf(authentication.getCredentials());
 
-        CustomUserDetails customUserDetails = (CustomUserDetails) customUserDetailsService.loadUserByUsername(userId);
+        CustomUserDetail customUserDetail = customUserDetailService.loadUserByUsername(userId);
 
-        if(passwordEncoder.matches(userPw, customUserDetails.getPassword())){
-            return new UsernamePasswordAuthenticationToken(customUserDetails.getUid(), null, customUserDetails.getAuthorities());
+        if(passwordEncoder.matches(userPw, customUserDetail.getPassword())){
+            return new UsernamePasswordAuthenticationToken(customUserDetail.getUid(), null, customUserDetail.getAuthorities());
         }
         throw new BadCredentialsException("Bad Credentials");
     }

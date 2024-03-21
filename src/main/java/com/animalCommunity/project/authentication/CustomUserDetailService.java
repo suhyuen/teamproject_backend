@@ -11,16 +11,16 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class CustomUserDetailService implements UserDetailsService {
     @Autowired
     UserMapper userMapper;   // 이부분과
 
-    public void  CustomUserDetailsService(UserMapper userMapper){  // 이부분과
+    public CustomUserDetailService(UserMapper userMapper){  // 이부분과
         this.userMapper = userMapper;
     }
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> user = userMapper.findUser(username);
-        return new CustomUserDetails(user.get());
+    public CustomUserDetail loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<User> user = userMapper.login(username);
+        return new CustomUserDetail(user.get());
     }
 }

@@ -1,6 +1,5 @@
 package com.animalCommunity.project.services;
 
-import com.animalCommunity.project.dtos.SignupDto;
 import com.animalCommunity.project.dtos.UserDto;
 import com.animalCommunity.project.mappers.UserMapper;
 import com.animalCommunity.project.models.User;
@@ -29,11 +28,7 @@ public class UserService {
                 .build();
         userMapper.addUser(user);
     }
-    public String login(UserDto userDto){
-        if(userMapper.login(userDto) != null){
-            return "login ok";
-        }else{
-            return "login fail";
-        }
+    public int exitMember (UserDto userDto){
+        return userMapper.exitMember(userDto); // 마이바티스는 쿼리가 정상처리되면 1을 반환한다.
     }
 }

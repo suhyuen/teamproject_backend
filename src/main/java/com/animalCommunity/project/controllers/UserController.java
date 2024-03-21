@@ -19,8 +19,10 @@ public class UserController {
         userService.signup(userDto);
     }
 
-    @PostMapping("/fingId")
-    public String login(@RequestBody UserDto userDto){
-        return userService.login(userDto);
+    @PostMapping("/exitMember")
+    public int exitMember(@RequestBody UserDto userDto){
+        int retrunValue = userService.exitMember(userDto);
+        System.out.println(retrunValue);  // 1이 출력되면 정상 0이 출력되면 오류
+        return retrunValue;
     }
 }

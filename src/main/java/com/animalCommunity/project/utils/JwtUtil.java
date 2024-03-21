@@ -30,7 +30,6 @@ public class JwtUtil {
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
-    // 아래 코드 모두 추가
     // token에서 role 꺼내오기
     public String getRole(String token){
         SecretKey key = Keys.hmacShaKeyFor(signingKey.getBytes(StandardCharsets.UTF_8));
