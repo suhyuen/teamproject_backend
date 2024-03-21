@@ -30,4 +30,7 @@
         update users_tb set user_name = #{username}, nickname = #{nickname}, email = #{email}, adress = #{adress}, animal = #{animal}
         where id = #{userId};
     </update>
+    <select id="findId" resultType="java.lang.String"> <!--  id찾기  -->
+        select id AS userId from users_tb where email = #{email} and user_name = #{username}
+    </select>
 </mapper>
