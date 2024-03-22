@@ -50,6 +50,11 @@ public class SecruityConfig {
                 .requestMatchers(HttpMethod.POST,"/userInfoUpdate").hasAnyAuthority("ROLE_USER")
                 .requestMatchers(HttpMethod.POST,"/adminwrite").hasAnyAuthority("ROLE_ADMIN")
                 .requestMatchers(HttpMethod.POST,"/updateadminpost").hasAnyAuthority("ROLE_ADMIN")
+                //.requestMatchers(HttpMethod.POST,"/test").hasAnyAuthority("ROLE_USER") // hasAnyAuthority은 접속권한을 지정한다.
+                //requestMatchers(HttpMethod.POST,"/test").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN") // 권한 설정 둘중 하나만 가지고 있어도 가능하게 지정할 수 있다.
+                .requestMatchers(HttpMethod.GET,"/dogposts").permitAll()
+                .requestMatchers(HttpMethod.GET,"/catposts").permitAll()
+                .requestMatchers(HttpMethod.GET,"/etcposts").permitAll()
                 .anyRequest().authenticated());
         return http.build();
     }
