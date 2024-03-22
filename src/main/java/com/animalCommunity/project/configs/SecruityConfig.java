@@ -43,6 +43,8 @@ public class SecruityConfig {
                 .requestMatchers(HttpMethod.POST,"/nicknameCheck").permitAll()
                 .requestMatchers(HttpMethod.POST,"/findId").permitAll()
                 .requestMatchers(HttpMethod.POST,"/login").permitAll()
+                .requestMatchers(HttpMethod.POST,"/sendMail").permitAll()
+                .requestMatchers(HttpMethod.POST,"/rePassword").permitAll()
                 .requestMatchers(HttpMethod.POST,"/exitMember").hasAnyAuthority("ROLE_USER")
                 .requestMatchers(HttpMethod.POST,"/userInfo").hasAnyAuthority("ROLE_USER")
                 .requestMatchers(HttpMethod.POST,"/userInfoUpdate").hasAnyAuthority("ROLE_USER")
