@@ -19,6 +19,8 @@ public class PostService {
     }
 
     public List<Post> selectPosts(int pageUid) {
+        List<Post> a = postMapper.selectPosts(pageUid);
+        System.out.println(a);
         return postMapper.selectPosts(pageUid);
     }
 

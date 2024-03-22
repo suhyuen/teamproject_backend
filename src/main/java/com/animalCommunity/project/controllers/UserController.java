@@ -1,7 +1,9 @@
 package com.animalCommunity.project.controllers;
 
+import com.animalCommunity.project.dtos.EmailDto;
 import com.animalCommunity.project.dtos.UserDto;
 import com.animalCommunity.project.models.User;
+import com.animalCommunity.project.services.EmailService;
 import com.animalCommunity.project.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,8 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 
-    @Autowired
     UserService userService;
+    EmailService emailService;
+
+    public UserController(UserService userService, EmailService emailService) {
+        this.userService = userService;
+        this.emailService = emailService;
+    }
 
     @PostMapping("/signup")  // 회원가입
     public int signup(@RequestBody UserDto userDto){

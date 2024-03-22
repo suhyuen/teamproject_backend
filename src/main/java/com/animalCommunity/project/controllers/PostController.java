@@ -24,7 +24,6 @@ public class PostController {
 
     @GetMapping("/dogposts")
     public List<Post> dogposts(@RequestParam(name="pageUid") int pageUid){
-        System.out.println(postService.selectPosts(pageUid));
         return postService.selectPosts(pageUid);
     }
 
