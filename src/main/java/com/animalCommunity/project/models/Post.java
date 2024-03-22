@@ -17,5 +17,7 @@ public class Post {
     private int pageUid;
     private int mainUid;
     private LocalDateTime createdAt;
+    private int likeCount;
+    private int commentCount;
     private User user;
 }

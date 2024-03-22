@@ -7,12 +7,30 @@
         INSERT INTO users_tb(user_name, nickname, id, pw, email, adress, animal)
         values  (#{username}, #{nickname}, #{userId},#{userPw},#{email}, #{adress}, #{animal})
     </insert>
-    <select id="login" resultType="com.animalCommunity.project.dtos.UserDto">
-        select id AS userId, pw AS userPw FROM users_tb
-        WHERE id = #{userId} and pw = #{userPw};
+    <select id="idCheck" resultType="com.animalCommunity.project.dtos.UserDto"> <!--  회원가입시 id 중복조회  -->
+        select id as userId from users_tb where id = #{userId}
     </select>
-    <select id="findUser">
-        select uid, id AS userId, pw AS userPw, nickname, animal, auth FROM users_tb
+    <select id="nicknameCheck" resultType="com.animalCommunity.project.dtos.UserDto"> <!--  회원가입시 nickname 중복조회  -->
+        select nickname from users_tb where nickname = #{nickname}
+    </select>
+    <select id="login" resultType="com.animalCommunity.project.models.User"> <!--  로그인  -->
+        select uid, user_name as username, nickname, id as userId, pw as userPw, email, adress, animal, auth, created_at as createAt, deleteyn
+        FROM users_tb
         WHERE id = #{userId};
+    </select>
+    <update id="exitMember"> <!--  회원탈퇴  -->
+        update users_tb set deleteyn = 'Y' where id = #{userId};
+    </update>
+    <select id="userInfo" resultType="com.animalCommunity.project.models.User">  <!--  회원정보조회  -->
+        select uid, user_name as username, nickname, id as userId, pw as userPw, email, adress, animal, auth, created_at as createAt, deleteyn
+        FROM users_tb
+        WHERE id = #{userId};
+    </select>
+    <update id="userInfoUpdate"> <!--  회원정보수정  -->
+        update users_tb set user_name = #{username}, nickname = #{nickname}, email = #{email}, adress = #{adress}, animal = #{animal}
+        where id = #{userId};
+    </update>
+    <select id="findId" resultType="java.lang.String"> <!--  id찾기  -->
+        select id AS userId from users_tb where email = #{email} and user_name = #{username}
     </select>
 </mapper>

@@ -26,11 +26,37 @@
     </insert>
 
     <select id="selectPosts" resultMap="postResultMap">
-        SELECT post_tb.uid as post_uid, users_tb.nickname, title, post_tb.created_at
-        FROM post_tb
-        INNER JOIN users_tb
-        ON post_tb.user_uid = users_tb.uid
-        WHERE page_uid=#{pageUid};
+        SELECT
+        post_tb.uid,
+        post_tb.title AS post_title,
+        post_tb.created_at AS post_create_at,
+        post_tb.viewer AS post_viewer,
+        main_categories.category_name AS category_name,
+        users_tb.nickname AS nickname,
+        COUNT(DISTINCT likes_tb.uid) AS like_count,
+        COUNT(DISTINCT comment_tb.uid) AS comment_count
+        FROM
+        post_tb
+        INNER JOIN
+        users_tb ON post_tb.user_uid = users_tb.uid
+        INNER JOIN
+        main_categories ON post_tb.main_uid = main_categories.uid
+        LEFT JOIN
+        likes_tb ON post_tb.uid = likes_tb.post_uid
+        LEFT JOIN
+        comment_tb ON post_tb.uid = comment_tb.post_uid
+        WHERE
+        page_uid=#{pageUid}
+        GROUP BY
+        post_tb.uid,
+        post_tb.title,
+        post_tb.created_at,
+        post_tb.viewer,
+        main_categories.category_name,
+        users_tb.nickname
+        ORDER BY
+        post_tb.created_at DESC;
+
     </select>
 
     <select id ="myPosts">

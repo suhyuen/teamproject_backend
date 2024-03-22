@@ -17,18 +17,30 @@ public class PostController {
 
     @PostMapping("/write")
     public String write(@RequestBody WriteDto writeDto){
+        int userUid = (Integer)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         postService.insertPost(writeDto);
         return "test";
     }
 
     @GetMapping("/dogposts")
-    public List<Post> selectPosts(@RequestParam(name="pageUid") int pageUid){
+    public List<Post> dogposts(@RequestParam(name="pageUid") int pageUid){
+        System.out.println(postService.selectPosts(pageUid));
         return postService.selectPosts(pageUid);
     }
 
+    @GetMapping("/catposts")
+    public List<Post> catposts(@RequestParam(name="pageUid") int pageUid){
+        return postService.selectPosts(pageUid);
+    }
+    @GetMapping("/etcposts")
+    public List<Post> etcposts(@RequestParam(name="pageUid") int pageUid){
+        return postService.selectPosts(pageUid);
+    }
+
+
     @PostMapping("/updatepost")
     public String updatepost(@RequestBody Post post){
-        System.out.println(postService.updatePost());
+        int userUid = (Integer)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         postService.updatePost(post);
         return "test";
     }

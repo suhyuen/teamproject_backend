@@ -1,9 +1,11 @@
 package com.animalCommunity.project.authentication;
 
+import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,16 +28,17 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
         this.authenticationManager = authenticationManager;
     }
 
-    @Override // 시작
+    @Override  // Spring SecruityConfig Start!!!
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         String username = obtainUsername(request);
         String password = obtainPassword(request);
 
-        System.out.println(username +" : "+" test");
-
         UsernamePasswordAuthenticationToken a = new UsernamePasswordAuthenticationToken(username, password);
         return authenticationManager.authenticate(a);
     }
+
+    @Value("${jwt.signing.key}")
+    private String testkey;
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
@@ -45,6 +48,7 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
 
         String role = auth.getAuthority();
         String token = jwtUtil.createToken((int)authResult.getPrincipal(), role, 60*60*1000L);
+
         response.addHeader("Authorization", "Bearer " + token);
     }
 
