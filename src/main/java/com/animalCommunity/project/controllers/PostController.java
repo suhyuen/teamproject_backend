@@ -4,6 +4,7 @@ import com.animalCommunity.project.dtos.WriteDto;
 import com.animalCommunity.project.models.Post;
 import com.animalCommunity.project.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,8 +26,11 @@ public class PostController {
         return postService.selectPosts(pageUid);
     }
 
-    @PostMapping("myposts")
-    public List<Post> myPosts(@RequestBody Post post){
-        return postService.myPosts();
+    @PostMapping("/updatepost")
+    public String updatepost(@RequestBody Post post){
+        System.out.println(postService.updatePost());
+        postService.updatePost(post);
+        return "test";
     }
+
 }

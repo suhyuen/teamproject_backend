@@ -41,5 +41,10 @@
         where post_tb.user_uid = #{userUid};
     </select>
 
+    <update id ="updatePost">
+        update post_tb set title = #{title}, content = #{content}, page_uid=#{pageUid}, main_uid=#{mainUid}
+        where post_tb.uid=#{uid} and user_uid = #{userUid}
+    </update>
+
 
 </mapper>

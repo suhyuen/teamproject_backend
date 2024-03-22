@@ -26,5 +26,9 @@ public class PostService {
         return postMapper.myPosts(userUid);
     }
 
+    public void updatePost(Post post){
+        postMapper.updatePost(post);
+    }
+
 
 }

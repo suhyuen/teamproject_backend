@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @ToString
 public class Post {
     private int uid;
+    private int userUid;
     private String title;
     private String content;
     private int pageUid;

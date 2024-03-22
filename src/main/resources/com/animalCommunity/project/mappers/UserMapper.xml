@@ -3,7 +3,16 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.animalCommunity.project.mappers.UserMapper">
-    <insert id="addUser">
-        insert into users_tb(user_id, user_pw, nickname) values (#{userId},#{userPw},#{nickname})
+    <insert id="addUser"> <!--  회원가입  -->
+        INSERT INTO users_tb(user_name, nickname, id, pw, email, adress, animal)
+        values  (#{username}, #{nickname}, #{userId},#{userPw},#{email}, #{adress}, #{animal})
     </insert>
+    <select id="login" resultType="com.animalCommunity.project.dtos.UserDto">
+        select id AS userId, pw AS userPw FROM users_tb
+        WHERE id = #{userId} and pw = #{userPw};
+    </select>
+    <select id="findUser">
+        select uid, id AS userId, pw AS userPw, nickname, animal, auth FROM users_tb
+        WHERE id = #{userId};
+    </select>
 </mapper>

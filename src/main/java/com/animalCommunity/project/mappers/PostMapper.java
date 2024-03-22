@@ -12,4 +12,6 @@ public interface PostMapper {
     List<Post> selectPosts(int pageUid);
 
     List<Post> myPosts(int userUid);
+
+    void updatePost(Post post);
 }
