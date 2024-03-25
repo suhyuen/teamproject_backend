@@ -1,5 +1,6 @@
 package com.animalCommunity.project.services;
 
+import com.animalCommunity.project.dtos.PostDto;
 import com.animalCommunity.project.dtos.WriteDto;
 import com.animalCommunity.project.mappers.PostMapper;
 import com.animalCommunity.project.models.Post;
@@ -22,9 +23,24 @@ public class PostService {
         return postMapper.selectPosts(pageUid);
     }
 
+    public Post detailPost(int uid){
+        return postMapper.detailPost(uid);
+    }
+
     public List<Post> myPosts(int userUid){
         return postMapper.myPosts(userUid);
     }
+    public void updatePost(Post post){
+        postMapper.updatePost(post);
+    }
 
+    public void deletePost(PostDto postDto){
+        postMapper.deletePost(postDto);
+
+    }
+
+    public void incrementLikeCount(int uid) {
+        postMapper.incrementLikeCount(uid);
+    }
 
 }

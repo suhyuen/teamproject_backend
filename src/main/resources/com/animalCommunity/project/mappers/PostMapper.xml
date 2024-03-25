@@ -1,45 +1,119 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        <!DOCTYPE mapper
+                PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.animalCommunity.project.mappers.PostMapper">
 
-    <resultMap id="postResultMap" type="com.animalCommunity.project.models.Post">
-        <result property="uid" column="post_uid"/>
-        <result property="createdAt" column="created_at"/>
-        <result property="title" column="title"/>
-        <result property="content" column="content"/>
-        <result property="mainUid" column="main_uid"/>
-        <result property="pageUid" column="page_uid"/>
+<resultMap id="postResultMap" type="com.animalCommunity.project.models.Post">
+    <result property="uid" column="uid"/>
+    <result property="createdAt" column="createdAt"/>
+    <result property="title" column="title"/>
+    <result property="content" column="content"/>
+    <result property="mainUid" column="main_uid"/>
+    <result property="pageUid" column="page_uid"/>
+    <result property="mainName" column="mainName"/>
+    <result property="likeCount" column="likeCount"/>
+    <result property="commentCount" column="commentCount"/>
+    <result property="viewer" column="viewer"/>
 
-        <collection property="user" ofType="com.animalCommunity.project.models.User">
-            <result property="uid" column="uid"/>
-            <result property="nickname" column="nickname"/>
-        </collection>
-    </resultMap>
+    <collection property="user" ofType="com.animalCommunity.project.models.User">
+        <result property="uid" column="userUid"/>
+        <result property="nickname" column="nickname"/>
+    </collection>
+</resultMap>
 
 
 
-    <insert id="insertPost">
-        INSERT into post_tb(user_uid, page_uid, main_uid, title, content)
-        value(#{userUid}, #{pageUid}, #{mainUid}, #{title}, #{content})
-    </insert>
+<insert id="insertPost">
+    INSERT into post_tb(user_uid, page_uid, main_uid, title, content)
+    value(#{userUid}, #{pageUid}, #{mainUid}, #{title}, #{content})
+</insert>
 
-    <select id="selectPosts" resultMap="postResultMap">
-        SELECT post_tb.uid as post_uid, users_tb.nickname, title, post_tb.created_at
-        FROM post_tb
-        INNER JOIN users_tb
-        ON post_tb.user_uid = users_tb.uid
-        WHERE page_uid=#{pageUid};
-    </select>
+<select id="selectPosts" resultMap="postResultMap">
+    SELECT
+    post_tb.uid AS uid,
+    post_tb.title AS title,
+    post_tb.created_at AS createdAt,
+    post_tb.viewer AS viewer,
+    post_tb.deleteyn AS deleteyn,
+    main_categories.category_name AS mainName,
+    users_tb.nickname AS nickname,
+    COUNT(DISTINCT likes_tb.uid) AS likeCount,
+    COUNT(DISTINCT comment_tb.uid) AS commentCount
+    FROM post_tb
+    INNER JOIN users_tb ON post_tb.user_uid = users_tb.uid
+    INNER JOIN main_categories ON post_tb.main_uid = main_categories.uid
+    LEFT JOIN likes_tb ON post_tb.uid = likes_tb.post_uid
+    LEFT JOIN comment_tb ON post_tb.uid = comment_tb.post_uid
+    WHERE page_uid = #{pageUid} and post_tb.deleteyn = 'n'
+    GROUP BY
+    post_tb.uid,
+    post_tb.title,
+    post_tb.created_at,
+    post_tb.viewer,
+    main_categories.category_name,
+    users_tb.nickname
+    ORDER BY post_tb.created_at DESC;
+</select>
 
-    <select id ="myPosts">
-        select post_tb.uid as post_uid, users_tb.nickname, main_categories.category_name, post_tb.created_at
-        from post_tb
-        inner join users_tb on post_tb.user_uid = users_tb.uid
-        inner join main_categories on post_tb.main_uid = main_categories.uid
-        where post_tb.user_uid = #{userUid};
-    </select>
+<select id ="myPosts" resultMap="postResultMap">
+    SELECT
+    post_tb.uid AS uid,
+    post_tb.title AS title,
+    post_tb.created_at AS createdAt,
+    post_tb.viewer AS viewer,
+    post_tb.deleteyn AS deleteyn,
+    main_categories.category_name AS mainName,
+    users_tb.nickname AS nickname,
+    COUNT(DISTINCT likes_tb.uid) AS likeCount,
+    COUNT(DISTINCT comment_tb.uid) AS commentCount
+    FROM post_tb
+    INNER JOIN users_tb ON post_tb.user_uid = users_tb.uid
+    INNER JOIN main_categories ON post_tb.main_uid = main_categories.uid
+    LEFT JOIN likes_tb ON post_tb.uid = likes_tb.post_uid
+    LEFT JOIN comment_tb ON post_tb.uid = comment_tb.post_uid
+    WHERE post_tb.user_uid = #{userUid} and post_tb.deleteyn = 'n'
+    GROUP BY
+    post_tb.uid,
+    post_tb.title,
+    post_tb.created_at,
+    post_tb.viewer,
+    main_categories.category_name,
+    users_tb.nickname
+    ORDER BY post_tb.created_at DESC;
+
+</select>
+
+<select id ="detailPost" resultMap="postResultMap">
+    SELECT
+    post_tb.title AS title,
+    post_tb.created_at AS createdAt,
+    main_categories.category_name AS mainName,
+    users_tb.nickname AS nickname
+    FROM post_tb
+    INNER JOIN users_tb ON post_tb.user_uid = users_tb.uid
+    INNER JOIN main_categories ON post_tb.main_uid = main_categories.uid
+    WHERE post_tb.uid = #{uid}
+
+</select>
+
+<update id ="updatePost">
+    update post_tb set title = #{title}, content = #{content}, page_uid=#{pageUid}, main_uid=#{mainUid}
+    where post_tb.uid=#{uid} and user_uid = #{userUid}
+</update>
+
+<update id="deletePost">
+    update post_tb
+    set deleteyn = 'y'
+    where uid = #{uid} and user_uid = #{userUid}
+</update>
+
+    <update id="incrementLikeCount">
+        UPDATE post_tb
+        LEFT JOIN likes_tb ON post_tb.uid = likes_tb.post_uid
+        set likeCount = likeCount + 1
+        WHERE post_tb.uid = #{uid}
+    </update>
 
 
 </mapper>
