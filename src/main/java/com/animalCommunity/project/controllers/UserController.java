@@ -27,8 +27,14 @@ public class UserController {
     }
 
     @PostMapping("/signup")  // 회원가입
-    public int signup(@RequestBody UserDto userDto){
-        return userService.signup(userDto);
+    public int signup(@Valid @RequestBody UserDto userDto, Errors errors){
+        if(errors.hasErrors()){
+            System.out.println("error");
+            return 0;
+        }else{
+            userService.signup(userDto);
+            return 1;
+        }
     }
     @PostMapping("/idCheck")  // 회원가입시 id 중복체크
     public int idCheck(@RequestBody UserDto userDto){

@@ -11,14 +11,14 @@ import lombok.*;
 @AllArgsConstructor
 public class UserDto {
 
-    @NotBlank(message = "필수 입력값입니다.")
+    @NotBlank(message = "이름은 필수 입력값입니다.")
     private String username;
 
-    @NotBlank(message = "필수 입력값입니다.")
+    @NotBlank(message = "닉네임은 필수 입력값입니다.")
     @Pattern(regexp = "^[ㄱ-ㅎ가-힣a-z0-9-_]{2,10}$", message = "닉네임은 특수문자를 제외한 2~10자리여야 합니다.")
     private String nickname;
 
-    @NotBlank(message = "필수 입력값입니다.")
+    @NotBlank(message = "ID는 필수 입력값입니다.")
     @Pattern(regexp = "^[ㄱ-ㅎ가-힣a-z0-9-_]{2,10}$", message = "id는 특수문자를 제외한 2~10자리여야 합니다.")
     private String userId;
 
