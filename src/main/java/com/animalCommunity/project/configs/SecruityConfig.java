@@ -50,6 +50,7 @@ public class SecruityConfig {
                 .requestMatchers(HttpMethod.POST,"/userInfoUpdate").hasAnyAuthority("ROLE_USER")
                 .requestMatchers(HttpMethod.POST,"/adminwrite").hasAnyAuthority("ROLE_ADMIN")
                 .requestMatchers(HttpMethod.POST,"/updateadminpost").hasAnyAuthority("ROLE_ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/deleteadminpost").hasAnyAuthority("ROLE_ADMIN")
                 .requestMatchers(HttpMethod.GET,"/commentList").hasAnyAuthority("ROLE_USER")
                 .requestMatchers(HttpMethod.POST,"/commentCreate").hasAnyAuthority("ROLE_USER")
                 .requestMatchers(HttpMethod.POST,"/commentDelete").hasAnyAuthority("ROLE_USER")
