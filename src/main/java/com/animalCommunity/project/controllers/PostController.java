@@ -66,8 +66,8 @@ public class PostController {
     }
 
     @GetMapping("/likecount")
-        public void likePost(@RequestParam(name="uid") int uid) {
+    public void likePost(@RequestParam(name="uid") int uid) {
         postService.incrementLikeCount(uid);
-}
+    }
 
 }

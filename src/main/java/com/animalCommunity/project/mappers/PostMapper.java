@@ -22,4 +22,3 @@ public interface PostMapper {
 
     void incrementLikeCount(int uid);
 }
-

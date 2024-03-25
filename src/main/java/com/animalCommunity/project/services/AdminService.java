@@ -11,16 +11,16 @@ public class AdminService {
     @Autowired
     AdminMapper adminMapper;
 
-    public void adminPost(AdminDto adminDto) {
-        adminMapper.adminPost(adminDto);
+    public void adminWrite(AdminDto adminDto) {
+        adminMapper.adminWrite(adminDto);
     }
 
-    public void adminUpdate(AdminDto adminDto) {
-        adminMapper.adminUpdate(adminDto);
+    public void updateAdminPost(AdminDto adminDto) {
+        adminMapper.updateAdminPost(adminDto);
     }
 
-    public void adminUpdateDelete(AdminDto adminDto) {
-        adminMapper.adminUpdateDelete(adminDto);
+    public void deleteAdminPost(AdminDto adminDto) {
+        adminMapper.deleteAdminPost(adminDto);
     }
 
 

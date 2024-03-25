@@ -43,18 +43,23 @@ public class SecruityConfig {
                 .requestMatchers(HttpMethod.POST,"/nicknameCheck").permitAll()
                 .requestMatchers(HttpMethod.POST,"/findId").permitAll()
                 .requestMatchers(HttpMethod.POST,"/login").permitAll()
+                .requestMatchers(HttpMethod.POST,"/sendMail").permitAll()
+                .requestMatchers(HttpMethod.POST,"/rePassword").permitAll()
                 .requestMatchers(HttpMethod.POST,"/exitMember").hasAnyAuthority("ROLE_USER")
                 .requestMatchers(HttpMethod.POST,"/userInfo").hasAnyAuthority("ROLE_USER")
                 .requestMatchers(HttpMethod.POST,"/userInfoUpdate").hasAnyAuthority("ROLE_USER")
                 .requestMatchers(HttpMethod.POST,"/adminwrite").hasAnyAuthority("ROLE_ADMIN")
                 .requestMatchers(HttpMethod.POST,"/updateadminpost").hasAnyAuthority("ROLE_ADMIN")
-                //.requestMatchers(HttpMethod.POST,"/test").hasAnyAuthority("ROLE_USER") // hasAnyAuthority은 접속권한을 지정한다.
-                //requestMatchers(HttpMethod.POST,"/test").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN") // 권한 설정 둘중 하나만 가지고 있어도 가능하게 지정할 수 있다.
                 .requestMatchers(HttpMethod.GET,"/dogposts").permitAll()
                 .requestMatchers(HttpMethod.GET,"/catposts").permitAll()
                 .requestMatchers(HttpMethod.GET,"/etcposts").permitAll()
                 .requestMatchers(HttpMethod.GET,"/detailpost").permitAll()
                 .requestMatchers(HttpMethod.GET,"/likecount").permitAll()
+                .requestMatchers(HttpMethod.DELETE, "/deleteadminpost").hasAnyAuthority("ROLE_ADMIN")
+                .requestMatchers(HttpMethod.GET,"/commentList").hasAnyAuthority("ROLE_USER")
+                .requestMatchers(HttpMethod.POST,"/commentCreate").hasAnyAuthority("ROLE_USER")
+                .requestMatchers(HttpMethod.POST,"/commentDelete").hasAnyAuthority("ROLE_USER")
+                .requestMatchers(HttpMethod.POST,"/commentUpdate").hasAnyAuthority("ROLE_USER")
                 .anyRequest().authenticated());
         return http.build();
     }
