@@ -5,10 +5,15 @@ import com.animalCommunity.project.dtos.UserDto;
 import com.animalCommunity.project.models.User;
 import com.animalCommunity.project.services.EmailService;
 import com.animalCommunity.project.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class UserController {
@@ -23,8 +28,7 @@ public class UserController {
 
     @PostMapping("/signup")  // 회원가입
     public int signup(@RequestBody UserDto userDto){
-        int a = userService.signup(userDto);
-        return a;
+        return userService.signup(userDto);
     }
     @PostMapping("/idCheck")  // 회원가입시 id 중복체크
     public int idCheck(@RequestBody UserDto userDto){
