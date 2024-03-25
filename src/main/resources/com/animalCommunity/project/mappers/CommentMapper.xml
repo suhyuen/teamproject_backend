@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.animalCommunity.project.mappers.CommentMapper">
+
+    <resultMap id="commentList" type="com.animalCommunity.project.models.Comment">
+        <result property="uid" column="uid"/>
+        <result property="userUid" column="user_uid"/>
+        <result property="postUid" column="post_uid"/>
+        <result property="content" column="content"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="deleteyn" column="delete_yn"/>
+    </resultMap>
+
+    <select id="commentList" resultMap="commentList"> <!--  댓글 출력  -->
+        SELECT ct.uid, ct.content, ct.post_uid, ct.created_at, ut.nickname
+        FROM comment_tb AS ct
+        INNER JOIN users_tb as ut ON ut.uid = #{postUid} AND ct.deleteyn = 'N' ;
+    </select>
+    <insert id="commentCreate"> <!--  댓글 입력  -->
+        INSERT INTO comment_tb  (user_uid, post_uid, content) values (#{userUid}, #{postUid}, #{content});
+    </insert>
+    <delete id="commentDelete"> <!--  댓글 삭제  -->
+        DELETE FROM comment_tb WHERE uid = #{uid};
+    </delete>
+    <update id="commentUpdate">
+        UPDATE comment_tb SET content = #{content} WHERE uid = #{uid};
+    </update>
+
+</mapper>
