@@ -16,17 +16,17 @@ public class AdminController {
 
     @PostMapping("/adminwrite")
     public void adminwrite(@RequestBody AdminDto adminDto){
-        adminService.adminPost(adminDto);
+        adminService.adminWrite(adminDto);
     }
 
     @PostMapping("/updateadminpost")
-    public void adminupdate(@RequestBody AdminDto adminDto){
-        adminService.adminUpdate(adminDto);
+    public void updateadminpost(@RequestBody AdminDto adminDto){
+        adminService.updateAdminPost(adminDto);
     }
 
-    @DeleteMapping("/detailpost/delete")
+    @DeleteMapping("/deleteadminpost")
     public void adminupdatedelete(@RequestBody AdminDto adminDto){
-        adminService.adminUpdateDelete(adminDto);
+        adminService.deleteAdminPost(adminDto);
     }
 
 }
