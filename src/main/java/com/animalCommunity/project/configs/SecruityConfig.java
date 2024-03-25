@@ -50,14 +50,16 @@ public class SecruityConfig {
                 .requestMatchers(HttpMethod.POST,"/userInfoUpdate").hasAnyAuthority("ROLE_USER")
                 .requestMatchers(HttpMethod.POST,"/adminwrite").hasAnyAuthority("ROLE_ADMIN")
                 .requestMatchers(HttpMethod.POST,"/updateadminpost").hasAnyAuthority("ROLE_ADMIN")
+                .requestMatchers(HttpMethod.GET,"/dogposts").permitAll()
+                .requestMatchers(HttpMethod.GET,"/catposts").permitAll()
+                .requestMatchers(HttpMethod.GET,"/etcposts").permitAll()
+                .requestMatchers(HttpMethod.GET,"/detailpost").permitAll()
+                .requestMatchers(HttpMethod.GET,"/likecount").permitAll()
                 .requestMatchers(HttpMethod.DELETE, "/deleteadminpost").hasAnyAuthority("ROLE_ADMIN")
                 .requestMatchers(HttpMethod.GET,"/commentList").hasAnyAuthority("ROLE_USER")
                 .requestMatchers(HttpMethod.POST,"/commentCreate").hasAnyAuthority("ROLE_USER")
                 .requestMatchers(HttpMethod.POST,"/commentDelete").hasAnyAuthority("ROLE_USER")
                 .requestMatchers(HttpMethod.POST,"/commentUpdate").hasAnyAuthority("ROLE_USER")
-                .requestMatchers(HttpMethod.GET,"/dogposts").permitAll()
-                .requestMatchers(HttpMethod.GET,"/catposts").permitAll()
-                .requestMatchers(HttpMethod.GET,"/etcposts").permitAll()
                 .anyRequest().authenticated());
         return http.build();
     }

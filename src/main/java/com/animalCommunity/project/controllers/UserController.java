@@ -1,5 +1,8 @@
 package com.animalCommunity.project.controllers;
 
+
+import com.animalCommunity.project.dtos.UserDto;
+import com.animalCommunity.project.models.User;
 import com.animalCommunity.project.dtos.EmailDto;
 import com.animalCommunity.project.dtos.UserDto;
 import com.animalCommunity.project.models.User;
@@ -21,10 +24,6 @@ public class UserController {
     UserService userService;
     EmailService emailService;
 
-    public UserController(UserService userService, EmailService emailService) {
-        this.userService = userService;
-        this.emailService = emailService;
-    }
 
     @PostMapping("/signup")  // 회원가입
     public int signup(@RequestBody UserDto userDto){
