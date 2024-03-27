@@ -1,7 +1,5 @@
 package com.animalCommunity.project.models;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 import java.util.Date;
