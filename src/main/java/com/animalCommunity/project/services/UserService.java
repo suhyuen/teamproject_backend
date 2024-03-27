@@ -36,12 +36,12 @@ public class UserService {
             return 0;
         }
     }
-    public int idCheck(UserDto userDto){  // 회원가입시 id 중복체크
-        int idCheck = userMapper.idCheck(userDto)==null?0:1;
+    public String idCheck(UserDto userDto){  // 회원가입시 id 중복체크
+        String idCheck = userMapper.idCheck(userDto)==null?"ok":"error";
         return idCheck;
     }
-    public int nicknameCheck(UserDto userDto){  // 회원가입시 nickname 중복체크
-        int nicknameCheck = userMapper.nicknameCheck(userDto)==null?0:1;
+    public String nicknameCheck(UserDto userDto){  // 회원가입시 nickname 중복체크
+        String nicknameCheck = userMapper.nicknameCheck(userDto)==null?"ok":"error";
          return nicknameCheck;
     }
     public int exitMember (UserDto userDto){ //회원탈퇴

@@ -14,10 +14,13 @@ public class Post {
     private int userUid;
     private String title;
     private String content;
+    private String mainName;
+    private String pageName;
     private int pageUid;
     private int mainUid;
     private LocalDateTime createdAt;
     private int likeCount;
     private int commentCount;
+    private int viewer;
     private User user;
 }

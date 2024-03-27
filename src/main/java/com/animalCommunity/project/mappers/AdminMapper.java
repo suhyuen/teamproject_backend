@@ -10,4 +10,5 @@ public interface AdminMapper {
     void updateAdminPost(AdminDto admin);
     void deleteAdminPost(AdminDto admin);
 
+
 }
