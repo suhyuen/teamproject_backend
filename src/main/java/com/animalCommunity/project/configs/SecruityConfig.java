@@ -22,6 +22,7 @@ public class SecruityConfig {
     public static final String ROLE_ADMIN = "ROLE_ADMIN";
     private final JwtUtil jwtUtil;
     private final UserNamePasswordAuthenticationProvider userNamePasswordAuthenticationProvider;
+
     public SecruityConfig(JwtUtil jwtUtil, UserNamePasswordAuthenticationProvider userNamePasswordAuthenticationProvider) {
         this.jwtUtil = jwtUtil;
         this.userNamePasswordAuthenticationProvider = userNamePasswordAuthenticationProvider;
@@ -36,6 +37,7 @@ public class SecruityConfig {
                 .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), LoginAuthenticationFilter.class);
 
         http.authorizeHttpRequests(authz -> authz  // 요청에 대한 인증
+                .requestMatchers(HttpMethod.GET,"/test").permitAll()
                 .requestMatchers(HttpMethod.GET,"/getTest").permitAll()
                 .requestMatchers(HttpMethod.POST,"/postTest2").permitAll()
                 .requestMatchers(HttpMethod.POST,"/signup").permitAll()

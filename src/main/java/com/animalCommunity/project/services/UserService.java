@@ -4,16 +4,19 @@ import com.animalCommunity.project.dtos.UserDto;
 import com.animalCommunity.project.mappers.UserMapper;
 import com.animalCommunity.project.models.User;
 import lombok.Builder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
-    @Autowired
+
     PasswordEncoder passwordEncoder;
-    @Autowired
     UserMapper userMapper;
+
+    public UserService(PasswordEncoder passwordEncoder, UserMapper userMapper) {
+        this.passwordEncoder = passwordEncoder;
+        this.userMapper = userMapper;
+    }
 
     @Builder(builderMethodName = "signupBuilder")  // 회원가입  // 빌더를 여러개 사용하려면 이름을 지어줘야 충돌하지 않는다.
     public int signup(UserDto userDto){
@@ -33,12 +36,12 @@ public class UserService {
             return 0;
         }
     }
-    public int idCheck(UserDto userDto){  // 회원가입시 id 중복체크
-        int idCheck = userMapper.idCheck(userDto)==null?0:1;
+    public String idCheck(UserDto userDto){  // 회원가입시 id 중복체크
+        String idCheck = userMapper.idCheck(userDto)==null?"ok":"error";
         return idCheck;
     }
-    public int nicknameCheck(UserDto userDto){  // 회원가입시 nickname 중복체크
-        int nicknameCheck = userMapper.nicknameCheck(userDto)==null?0:1;
+    public String nicknameCheck(UserDto userDto){  // 회원가입시 nickname 중복체크
+        String nicknameCheck = userMapper.nicknameCheck(userDto)==null?"ok":"error";
          return nicknameCheck;
     }
     public int exitMember (UserDto userDto){ //회원탈퇴

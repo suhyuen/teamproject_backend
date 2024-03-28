@@ -48,7 +48,6 @@ public class EmailService {
     public boolean rePassword (EmailDto emailDto){  // 이메일 재설정
         String code = verificationCodes.get("certification");
         emailDto.setNewPassword(passwordEncoder.encode(emailDto.getNewPassword()));
-
         if(Objects.equals(code, emailDto.getCode())){
             emailMapper.rePassword(emailDto);
             verificationCodes.put("certification", "");
