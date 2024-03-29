@@ -87,6 +87,7 @@
     <select id ="detailPost" resultMap="postResultMap">
         SELECT
         post_tb.title AS title,
+        post_tb.content AS content,
         post_tb.created_at AS createdAt,
         main_categories.category_name AS mainName,
         users_tb.nickname AS nickname
@@ -114,6 +115,5 @@
         set likeCount = likeCount + 1
         WHERE post_tb.uid = #{uid}
     </update>
-
 
 </mapper>
