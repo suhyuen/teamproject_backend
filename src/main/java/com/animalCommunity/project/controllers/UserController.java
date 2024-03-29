@@ -51,8 +51,9 @@ public class UserController {
         return test;
     }
     @PostMapping("/exitMember")  // 회원탈퇴
-    public int exitMember(@RequestBody UserDto userDto){
-        int retrunValue = userService.exitMember(userDto);
+    public String exitMember(@RequestBody UserDto userDto){
+        String retrunValue = userService.exitMember(userDto);
+        System.out.println(retrunValue + " : 컨트롤러");
         return retrunValue;
     }
     @PostMapping("/userInfo")  // 회원정보조회
