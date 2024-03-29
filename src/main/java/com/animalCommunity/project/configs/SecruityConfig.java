@@ -59,10 +59,9 @@ public class SecruityConfig {
                 .requestMatchers(HttpMethod.GET,"/likecount").permitAll()
                 .requestMatchers(HttpMethod.GET,"/detailpost").permitAll()
                 .requestMatchers(HttpMethod.DELETE, "/deleteadminpost").hasAnyAuthority("ROLE_ADMIN")
-                .requestMatchers(HttpMethod.GET,"/commentList").hasAnyAuthority("ROLE_USER")
-                .requestMatchers(HttpMethod.POST,"/commentCreate").hasAnyAuthority("ROLE_USER")
-                .requestMatchers(HttpMethod.POST,"/commentDelete").hasAnyAuthority("ROLE_USER")
-                .requestMatchers(HttpMethod.POST,"/commentUpdate").hasAnyAuthority("ROLE_USER")
+                .requestMatchers(HttpMethod.GET,"/detailpost/comments").permitAll()
+                .requestMatchers(HttpMethod.POST,"/commentUpdate").permitAll()
+                .requestMatchers(HttpMethod.POST,"/detailpost/{uid}/comments").hasAnyAuthority("ROLE_USER")
                 .anyRequest().authenticated());
         return http.build();
     }
