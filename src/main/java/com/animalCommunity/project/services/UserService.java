@@ -4,8 +4,12 @@ import com.animalCommunity.project.dtos.UserDto;
 import com.animalCommunity.project.mappers.UserMapper;
 import com.animalCommunity.project.models.User;
 import lombok.Builder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -44,8 +48,17 @@ public class UserService {
         String nicknameCheck = userMapper.nicknameCheck(userDto)==null?"ok":"error";
          return nicknameCheck;
     }
-    public int exitMember (UserDto userDto){ //회원탈퇴
-        return userMapper.exitMember(userDto); // 마이바티스는 쿼리가 정상처리되면 1을 반환한다.
+    public String exitMember (UserDto userDto){ //회원탈퇴
+        String returnCode = "error";
+        Optional<User> user = userMapper.login(userDto.getUserId());
+        if(passwordEncoder.matches(userDto.getUserPw(), user.get().getUserPw())){
+            System.out.println(userDto);
+            userMapper.exitMember(userDto);
+            returnCode = "회원 탈퇴가 완료되었습니다.";
+        }else{
+            returnCode = "id / pw를 확인해주세요";
+        }
+        return returnCode;
     }
 
     @Builder(builderMethodName = "userInfoBuilder")  // 회원정보조회

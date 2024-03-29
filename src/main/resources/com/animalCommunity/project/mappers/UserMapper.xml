@@ -19,16 +19,16 @@
         WHERE id = #{userId} and deleteyn = 'N';
     </select>
     <update id="exitMember"> <!--  회원탈퇴  -->
-        update users_tb set deleteyn = 'Y' where uid = #{uid};
+        update users_tb set deleteyn = 'Y' where id = #{userId};
     </update>
     <select id="userInfo" resultType="com.animalCommunity.project.models.User">  <!--  회원정보조회  -->
         select uid, user_name as username, nickname, id as userId, pw as userPw, email, adress, animal, auth, created_at as createAt, deleteyn
         FROM users_tb
-        WHERE uid = #{uid};
+        WHERE id = #{userId};
     </select>
     <update id="userInfoUpdate"> <!--  회원정보수정  -->
         update users_tb set user_name = #{username}, nickname = #{nickname}, email = #{email}, adress = #{adress}, animal = #{animal}
-        where uid = #{uid};
+        where id = #{userId};
     </update>
     <select id="findId" resultType="java.lang.String"> <!--  id찾기  -->
         select id AS userId from users_tb where email = #{email} and user_name = #{username}
