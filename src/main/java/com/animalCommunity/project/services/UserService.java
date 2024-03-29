@@ -62,9 +62,9 @@ public class UserService {
     }
 
     @Builder(builderMethodName = "userInfoBuilder")  // 회원정보조회
-    public User userInfo (UserDto userDto) {
+    public User userInfo (String userId) {
         User user = User.builder()
-                .userId(userDto.getUserId())
+                .userId(userId)
                 .build();
         User users = userMapper.userInfo(user);
         return users;
