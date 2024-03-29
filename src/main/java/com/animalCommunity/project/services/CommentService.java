@@ -1,5 +1,6 @@
 package com.animalCommunity.project.services;
 
+import com.animalCommunity.project.dtos.CommentDto;
 import com.animalCommunity.project.mappers.CommentMapper;
 import com.animalCommunity.project.models.Comment;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -17,11 +18,21 @@ public class CommentService {
     public List<Comment> commentList(int postUid){
         return commentMapper.commentList(postUid);
     }
-    public boolean commentCreate(Comment comment){
-        return commentMapper.commentCreate(comment);
+    public void commentCreate(CommentDto commentDto, int userUid,int postUid) {
+        Comment comment1 = Comment.builder()
+                .userUid(userUid)
+                .postUid(postUid)
+                .content(commentDto.getContent())
+                .build();
+
+        commentMapper.commentCreate(comment1);
     }
-    public boolean commentDelete(Comment comment){
-        return commentMapper.commentDelete(comment);
+    public void commentDelete(CommentDto commentDto, int userUid){
+        Comment comment = Comment.builder()
+                .uid(commentDto.getUid())
+                        .userUid(userUid)
+                                .build();
+        commentMapper.commentDelete(comment);
     }
     public boolean commentUpdate(Comment comment){
         return commentMapper.commentUpdate(comment);

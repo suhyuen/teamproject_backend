@@ -4,19 +4,30 @@ import com.animalCommunity.project.dtos.PostDto;
 import com.animalCommunity.project.dtos.WriteDto;
 import com.animalCommunity.project.mappers.PostMapper;
 import com.animalCommunity.project.models.Post;
+import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+
 public class PostService {
 
     @Autowired
     PostMapper postMapper;
 
-    public void insertPost(WriteDto writeDto){
-        postMapper.insertPost(writeDto);
+
+    public void insertPost(WriteDto writeDto, int userUid){
+        Post post = Post.builder()
+                .mainUid(writeDto.getMainUid())
+                .pageUid(writeDto.getPageUid())
+                .title(writeDto.getTitle())
+                .content(writeDto.getContent())
+                .userUid(userUid)
+                .build();
+
+        postMapper.insertPost(post);
     }
 
     public List<Post> selectPosts(int pageUid) {

@@ -7,6 +7,7 @@ import java.util.Date;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Comment {
@@ -16,4 +17,5 @@ public class Comment {
     private String content;
     private Date createdAt;
     private char deleteyn;
+    private User user;
 }

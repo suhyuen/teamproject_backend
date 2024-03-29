@@ -18,8 +18,8 @@ public class PostController {
 
     @PostMapping("/write")
     public String write(@RequestBody WriteDto writeDto){
-        int userUid = (Integer)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        postService.insertPost(writeDto);
+        int userUid = (Integer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        postService.insertPost(writeDto, userUid);
         return "test";
     }
 
@@ -39,7 +39,6 @@ public class PostController {
 
     @GetMapping("/detailpost")
     public Post detailpost(@RequestParam(name="uid") int uid){
-        System.out.println(postService.detailPost(uid));
         return postService.detailPost(uid);
     }
 
@@ -52,15 +51,14 @@ public class PostController {
     }
 
     @PostMapping("/myposts")
-    public List<Post> myposts(@RequestBody Post post){
-        int userUid = (Integer)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public List<Post> myposts(){
+        int userUid = (Integer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return postService.myPosts(userUid);
     }
 
     @PostMapping("/deletePost")
     public String deletePost(@RequestBody PostDto postDto) {
         int userUid = (Integer)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(postDto);
         postService.deletePost(postDto);
         return "test";
     }

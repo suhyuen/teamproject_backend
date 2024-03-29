@@ -5,10 +5,11 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class Post {
     private int uid;
     private int userUid;
@@ -23,4 +24,5 @@ public class Post {
     private int commentCount;
     private int viewer;
     private User user;
+
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 @Mapper
 public interface PostMapper {
-    void insertPost(WriteDto writeDto);
+    void insertPost(Post post);
     List<Post> selectPosts(int pageUid);
 
     Post detailPost(int uid);
