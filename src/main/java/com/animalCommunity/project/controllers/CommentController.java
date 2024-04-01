@@ -18,6 +18,7 @@ public class CommentController {
     }
     @GetMapping("/detailpost/comments")
     public List<Comment> commentList (@RequestParam(value="postUid") int postUid){
+        System.out.println(postUid);
         return commentService.commentList(postUid);
     }
     @PostMapping("/detailpost/{postUid}/comments")
@@ -31,9 +32,9 @@ public class CommentController {
         int userUid = (Integer)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         commentService.commentDelete(commentDto, userUid);
     }
-    @PostMapping("/commentUpdate")
-    public boolean commentUpdate(@RequestBody Comment comment){
-        //int userUid = (Integer)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return commentService.commentUpdate(comment);
+    @PostMapping("/detailpost/{postUid}/updatecomment")
+    public void commentUpdate(@RequestBody CommentDto commentDto, @PathVariable("postUid") int postUid){
+        int userUid = (Integer)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        commentService.commentUpdate(commentDto, userUid);
     }
 }

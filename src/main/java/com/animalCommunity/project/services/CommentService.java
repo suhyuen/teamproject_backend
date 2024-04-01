@@ -34,7 +34,12 @@ public class CommentService {
                                 .build();
         commentMapper.commentDelete(comment);
     }
-    public boolean commentUpdate(Comment comment){
+    public boolean commentUpdate(CommentDto commentDto, int userUid){
+        Comment comment = Comment.builder()
+                .uid(commentDto.getUid())
+                .userUid(userUid)
+                .content(commentDto.getContent())
+                .build();
         return commentMapper.commentUpdate(comment);
     }
 }
