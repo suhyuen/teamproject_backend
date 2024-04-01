@@ -18,7 +18,7 @@ public interface PostMapper {
 
     void updatePost(Post post);
 
-    void deletePost(PostDto postDto);
+    void deletePost(Post post);
 
     void incrementLikeCount(int uid);
 }
