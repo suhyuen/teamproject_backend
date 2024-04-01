@@ -19,7 +19,7 @@
     </resultMap>
 
     <select id="commentList" resultMap="commentList"> <!--  댓글 출력  -->
-        SELECT ct.content, ct.post_uid, ct.created_at, ut.nickname
+        SELECT ct.uid, ut.uid as userUid, ct.content, ct.post_uid, ct.created_at, ut.nickname
         FROM comment_tb AS ct
         INNER JOIN users_tb as ut ON ut.uid = ct.user_uid
         where ct.post_uid=#{postUid} AND ct.deleteyn = 'N' ;
