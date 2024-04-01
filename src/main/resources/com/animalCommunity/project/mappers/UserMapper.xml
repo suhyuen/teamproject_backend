@@ -16,7 +16,7 @@
     <select id="login" resultType="com.animalCommunity.project.models.User"> <!--  로그인  -->
         select uid, user_name as username, nickname, id as userId, pw as userPw, email, adress, animal, auth, created_at as createAt, deleteyn
         FROM users_tb
-        WHERE id = #{userId};
+        WHERE id = #{userId} and deleteyn = 'N';
     </select>
     <update id="exitMember"> <!--  회원탈퇴  -->
         update users_tb set deleteyn = 'Y' where id = #{userId};

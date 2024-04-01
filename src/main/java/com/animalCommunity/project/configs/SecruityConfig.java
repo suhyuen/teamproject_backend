@@ -22,6 +22,7 @@ public class SecruityConfig {
     public static final String ROLE_ADMIN = "ROLE_ADMIN";
     private final JwtUtil jwtUtil;
     private final UserNamePasswordAuthenticationProvider userNamePasswordAuthenticationProvider;
+
     public SecruityConfig(JwtUtil jwtUtil, UserNamePasswordAuthenticationProvider userNamePasswordAuthenticationProvider) {
         this.jwtUtil = jwtUtil;
         this.userNamePasswordAuthenticationProvider = userNamePasswordAuthenticationProvider;
@@ -36,6 +37,7 @@ public class SecruityConfig {
                 .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), LoginAuthenticationFilter.class);
 
         http.authorizeHttpRequests(authz -> authz  // 요청에 대한 인증
+                .requestMatchers(HttpMethod.GET,"/test").permitAll()
                 .requestMatchers(HttpMethod.GET,"/getTest").permitAll()
                 .requestMatchers(HttpMethod.POST,"/postTest2").permitAll()
                 .requestMatchers(HttpMethod.POST,"/signup").permitAll()
@@ -57,10 +59,9 @@ public class SecruityConfig {
                 .requestMatchers(HttpMethod.GET,"/likecount").permitAll()
                 .requestMatchers(HttpMethod.GET,"/detailpost").permitAll()
                 .requestMatchers(HttpMethod.DELETE, "/deleteadminpost").hasAnyAuthority("ROLE_ADMIN")
-                .requestMatchers(HttpMethod.GET,"/commentList").hasAnyAuthority("ROLE_USER")
-                .requestMatchers(HttpMethod.POST,"/commentCreate").hasAnyAuthority("ROLE_USER")
-                .requestMatchers(HttpMethod.POST,"/commentDelete").hasAnyAuthority("ROLE_USER")
-                .requestMatchers(HttpMethod.POST,"/commentUpdate").hasAnyAuthority("ROLE_USER")
+                .requestMatchers(HttpMethod.GET,"/detailpost/comments").permitAll()
+                .requestMatchers(HttpMethod.POST,"/commentUpdate").permitAll()
+                .requestMatchers(HttpMethod.POST,"/detailpost/{uid}/comments").hasAnyAuthority("ROLE_USER")
                 .anyRequest().authenticated());
         return http.build();
     }

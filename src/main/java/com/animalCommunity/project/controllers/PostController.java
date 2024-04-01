@@ -39,7 +39,6 @@ public class PostController {
 
     @GetMapping("/detailpost")
     public Post detailpost(@RequestParam(name="uid") int uid){
-        System.out.println(postService.detailPost(uid));
         return postService.detailPost(uid);
     }
 
@@ -60,7 +59,6 @@ public class PostController {
     @PostMapping("/deletePost")
     public String deletePost(@RequestBody PostDto postDto) {
         int userUid = (Integer)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(postDto);
         postService.deletePost(postDto);
         return "test";
     }

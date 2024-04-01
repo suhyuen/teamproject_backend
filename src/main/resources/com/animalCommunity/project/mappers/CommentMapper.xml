@@ -10,20 +10,28 @@
         <result property="postUid" column="post_uid"/>
         <result property="content" column="content"/>
         <result property="createdAt" column="created_at"/>
-        <result property="deleteyn" column="delete_yn"/>
+        <result property="deleteyn" column="deleteyn"/>
+
+        <collection property="user" ofType="com.animalCommunity.project.models.User">
+            <result property="uid" column="userUid"/>
+            <result property="nickname" column="nickname"/>
+        </collection>
     </resultMap>
 
     <select id="commentList" resultMap="commentList"> <!--  댓글 출력  -->
-        SELECT ct.uid, ct.content, ct.post_uid, ct.created_at, ut.nickname
+        SELECT ct.uid, ut.uid as userUid, ct.content, ct.post_uid, ct.created_at, ut.nickname
         FROM comment_tb AS ct
-        INNER JOIN users_tb as ut ON ut.uid = #{postUid} AND ct.deleteyn = 'N' ;
+        INNER JOIN users_tb as ut ON ut.uid = ct.user_uid
+        where ct.post_uid=#{postUid} AND ct.deleteyn = 'N' ;
     </select>
     <insert id="commentCreate"> <!--  댓글 입력  -->
         INSERT INTO comment_tb  (user_uid, post_uid, content) values (#{userUid}, #{postUid}, #{content});
     </insert>
-    <delete id="commentDelete"> <!--  댓글 삭제  -->
-        DELETE FROM comment_tb WHERE uid = #{uid};
-    </delete>
+    <update id="commentDelete"> <!--  댓글 삭제  -->
+        UPDATE comment_tb
+        SET deleteyn = 'Y'
+        where uid = #{uid} and user_uid = #{userUid}
+    </update>
     <update id="commentUpdate">
         UPDATE comment_tb SET content = #{content} WHERE uid = #{uid};
     </update>
