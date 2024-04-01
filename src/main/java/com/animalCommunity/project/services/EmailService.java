@@ -27,6 +27,7 @@ public class EmailService {
 
     @Async
     public boolean sendMail(EmailDto emailDto){  // 이메일 보내기
+        System.out.println(emailDto + "service");
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
 
         int certificationNum = ThreadLocalRandom.current().nextInt(100000, 1000000);

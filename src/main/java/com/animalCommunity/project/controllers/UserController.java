@@ -7,9 +7,7 @@ import com.animalCommunity.project.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,9 +54,9 @@ public class UserController {
         System.out.println(retrunValue + " : 컨트롤러");
         return retrunValue;
     }
-    @PostMapping("/userInfo")  // 회원정보조회
-    public User userInfo(@RequestBody UserDto userDto){
-        return userService.userInfo(userDto);
+    @GetMapping("/userInfo")  // 회원정보조회
+    public User userInfo(@RequestParam(name="userId") String userId){
+        return userService.userInfo(userId);
     }
     @PostMapping("/userInfoUpdate") // 회원정보수정
     public int userInfoUpdate (@RequestBody UserDto userDto){

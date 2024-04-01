@@ -18,7 +18,6 @@ public class CommentController {
     }
     @GetMapping("/detailpost/comments")
     public List<Comment> commentList (@RequestParam(value="postUid") int postUid){
-        System.out.println(postUid);
         return commentService.commentList(postUid);
     }
     @PostMapping("/detailpost/{postUid}/comments")

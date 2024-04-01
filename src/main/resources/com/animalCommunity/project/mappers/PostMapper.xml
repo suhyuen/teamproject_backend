@@ -86,11 +86,13 @@
 
     <select id ="detailPost" resultMap="postResultMap">
         SELECT
+        post_tb.uid AS uid,
         post_tb.title AS title,
         post_tb.content AS content,
         post_tb.created_at AS createdAt,
         main_categories.category_name AS mainName,
-        users_tb.nickname AS nickname
+        users_tb.nickname AS nickname,
+        users_tb.uid AS userUid
         FROM post_tb
         INNER JOIN users_tb ON post_tb.user_uid = users_tb.uid
         INNER JOIN main_categories ON post_tb.main_uid = main_categories.uid

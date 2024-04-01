@@ -43,10 +43,11 @@ public class PostController {
     }
 
 
-    @PostMapping("/updatepost")
-    public String updatepost(@RequestBody Post post){
+    @PostMapping("/updatepost/{postUid}")
+    public String updatepost(@RequestBody WriteDto writeDto){
         int userUid = (Integer)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        postService.updatePost(post);
+        System.out.println(writeDto);
+        postService.updatePost(writeDto, userUid);
         return "test";
     }
 
@@ -56,10 +57,10 @@ public class PostController {
         return postService.myPosts(userUid);
     }
 
-    @PostMapping("/deletePost")
+    @PostMapping("/detailpost/{postUid}/deletepost")
     public String deletePost(@RequestBody PostDto postDto) {
         int userUid = (Integer)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        postService.deletePost(postDto);
+        postService.deletePost(postDto, userUid);
         return "test";
     }
 
@@ -67,5 +68,4 @@ public class PostController {
     public void likePost(@RequestParam(name="uid") int uid) {
         postService.incrementLikeCount(uid);
     }
-
 }

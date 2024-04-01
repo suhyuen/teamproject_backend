@@ -41,12 +41,24 @@ public class PostService {
     public List<Post> myPosts(int userUid){
         return postMapper.myPosts(userUid);
     }
-    public void updatePost(Post post){
+    public void updatePost(WriteDto writeDto, int userUid){
+        Post post = Post.builder()
+                        .uid(writeDto.getUid())
+                        .userUid(userUid)
+                        .mainUid(writeDto.getMainUid())
+                        .pageUid(writeDto.getPageUid())
+                        .title(writeDto.getTitle())
+                        .content(writeDto.getContent())
+                        .build();
         postMapper.updatePost(post);
     }
 
-    public void deletePost(PostDto postDto){
-        postMapper.deletePost(postDto);
+    public void deletePost(PostDto postDto, int userUid){
+        Post post = Post.builder()
+                        .uid(postDto.getUid())
+                                .userUid(userUid)
+                                        .build();
+        postMapper.deletePost(post);
 
     }
 

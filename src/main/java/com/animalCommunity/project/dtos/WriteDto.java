@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class WriteDto {
+    private int uid;
     private int userUid;
     private int pageUid;
     private int mainUid;
