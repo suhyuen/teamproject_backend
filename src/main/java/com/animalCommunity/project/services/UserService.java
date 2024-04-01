@@ -45,8 +45,7 @@ public class UserService {
         return idCheck;
     }
     public String nicknameCheck(UserDto userDto){  // 회원가입시 nickname 중복체크
-        String nicknameCheck = userMapper.nicknameCheck(userDto)==null?"ok":"error";
-         return nicknameCheck;
+         return userMapper.nicknameCheck(userDto)==null?"ok":"error";
     }
     public String exitMember (UserDto userDto){ //회원탈퇴
         String returnCode = "error";
@@ -72,22 +71,20 @@ public class UserService {
     @Builder(builderMethodName = "userInfoUpdateBuilder")  //회원정보수정
     public int userInfoUpdate (UserDto userDto){
         User user = User.builder()
-                .userId(userDto.getUserId())
-                .username(userDto.getUsername())
+                .userId((userDto.getUserId()))
                 .nickname(userDto.getNickname())
                 .email(userDto.getEmail())
                 .adress(userDto.getAdress())
-                .animal(userDto.getAnimal())
                 .build();
         return userMapper.userInfoUpdate(user);
     }
     @Builder(builderMethodName = "findIdBuilder")
-    public String findId(UserDto userDto){
+    public String findId(String username, String email){
         User user = User.builder()
-                .username(userDto.getUsername())
-                .email(userDto.getEmail())
+                .username(username)
+                .email(email)
                 .build();
         String userId = userMapper.findId(user);
-        return userId!=null?userId:"nullValue";
+        return userId != null?userId : "nullValue";
     }
 }
