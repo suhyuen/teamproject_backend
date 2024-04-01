@@ -43,7 +43,7 @@ public class SecruityConfig {
                 .requestMatchers(HttpMethod.POST,"/signup").permitAll()
                 .requestMatchers(HttpMethod.POST,"/idCheck").permitAll()
                 .requestMatchers(HttpMethod.POST,"/nicknameCheck").permitAll()
-                .requestMatchers(HttpMethod.POST,"/findId").permitAll()
+                .requestMatchers(HttpMethod.GET,"/findId").permitAll()
                 .requestMatchers(HttpMethod.POST,"/login").permitAll()
                 .requestMatchers(HttpMethod.POST,"/sendmail").permitAll()
                 .requestMatchers(HttpMethod.POST,"/rePassword").permitAll()

@@ -43,15 +43,11 @@ public class UserController {
     }
     @PostMapping("/nicknameCheck") // 회원가입시 닉네임 중복체크
     public String nicknameCheck(@RequestBody UserDto userDto){
-        System.out.println(userDto.getNickname());
-        String test  = userService.nicknameCheck(userDto);
-        System.out.println(test);
-        return test;
+        return userService.nicknameCheck(userDto);
     }
     @PostMapping("/exitMember")  // 회원탈퇴
     public String exitMember(@RequestBody UserDto userDto){
         String retrunValue = userService.exitMember(userDto);
-        System.out.println(retrunValue + " : 컨트롤러");
         return retrunValue;
     }
     @GetMapping("/userInfo")  // 회원정보조회
@@ -62,8 +58,9 @@ public class UserController {
     public int userInfoUpdate (@RequestBody UserDto userDto){
         return userService.userInfoUpdate(userDto);
     }
-    @PostMapping("/findId")
-    public String findID(@RequestBody UserDto userDto){
-        return userService.findId(userDto);
+    @GetMapping("/findId")
+    public String findID(@RequestParam(name = "username") String username,
+                         @RequestParam(name = "email") String email){
+        return userService.findId(username, email);
     }
 }
