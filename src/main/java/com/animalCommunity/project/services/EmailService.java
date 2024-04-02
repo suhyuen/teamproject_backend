@@ -27,7 +27,6 @@ public class EmailService {
 
     @Async
     public boolean sendMail(EmailDto emailDto){  // 이메일 보내기
-        System.out.println(emailDto + "service");
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
 
         int certificationNum = ThreadLocalRandom.current().nextInt(100000, 1000000);
@@ -39,8 +38,13 @@ public class EmailService {
         simpleMailMessage.setText("인증메일 : " + verificationCodes.get("certification"));
 
         try {
-            javaMailSender.send(simpleMailMessage);
-            return true; // 메일 전송이 성공한 경우 true 반환
+            boolean userCheck = emailMapper.userCheck(emailDto);
+            if(userCheck == true){
+                javaMailSender.send(simpleMailMessage);
+                return true;
+            }else{
+                return false;
+            }
         } catch (Exception exception) {
             exception.printStackTrace();
             return false; // 메일 전송이 실패한 경우 false 반환
@@ -48,11 +52,12 @@ public class EmailService {
     }
     public boolean rePassword (EmailDto emailDto){  // 이메일 재설정
         String code = verificationCodes.get("certification");
-        emailDto.setNewPassword(passwordEncoder.encode(emailDto.getNewPassword()));
+
         if(Objects.equals(code, emailDto.getCode())){
-            emailMapper.rePassword(emailDto);
-            verificationCodes.put("certification", "");
-            return true;
+                emailDto.setNewPassword(passwordEncoder.encode(emailDto.getNewPassword()));
+                emailMapper.rePassword(emailDto);
+                verificationCodes.put("certification", "");
+                return true;
         }else{
             return false;
         }

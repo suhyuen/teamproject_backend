@@ -16,9 +16,9 @@ public class EmailController {
     }
     @PostMapping("/sendmail")
     public boolean sendMail(@RequestBody EmailDto emailDto){
-        System.out.println(emailDto.getEmail());
-        System.out.println(emailDto.getUserId());
-        return emailService.sendMail(emailDto);
+        boolean test = emailService.sendMail(emailDto);
+        System.out.println(test);
+        return test;
     }
     @PostMapping("/rePassword")    // 이메일 재설정
     public boolean rePassword(@RequestBody EmailDto emailDto){
