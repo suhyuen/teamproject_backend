@@ -41,7 +41,6 @@
         FROM post_tb p
         JOIN users_tb u ON p.user_uid = u.uid
         WHERE p.page_uid = 5 AND p.deleteyn = "N"
-        ORDER BY p.uid DESC;
     </select>
     <select id="selectDetailAdminPost" resultMap="adminResultMap">
         SELECT uid, user_uid, page_uid, title, content, viewer, created_at, deleteyn
