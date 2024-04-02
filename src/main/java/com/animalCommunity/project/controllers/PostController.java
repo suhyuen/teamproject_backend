@@ -44,11 +44,9 @@ public class PostController {
 
 
     @PostMapping("/updatepost/{postUid}")
-    public String updatepost(@RequestBody WriteDto writeDto){
+    public void updatepost(@RequestBody WriteDto writeDto){
         int userUid = (Integer)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(writeDto);
         postService.updatePost(writeDto, userUid);
-        return "test";
     }
 
     @PostMapping("/myposts")
