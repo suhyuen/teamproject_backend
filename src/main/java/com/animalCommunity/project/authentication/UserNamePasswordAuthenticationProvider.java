@@ -23,6 +23,9 @@ public class UserNamePasswordAuthenticationProvider implements AuthenticationPro
         String userId = String.valueOf(authentication.getPrincipal());
         String userPw = String.valueOf(authentication.getCredentials());
 
+        System.out.println(userId);
+        System.out.println(userPw);
+
         CustomUserDetail customUserDetail = customUserDetailService.loadUserByUsername(userId);
 
         if(passwordEncoder.matches(userPw, customUserDetail.getPassword())){

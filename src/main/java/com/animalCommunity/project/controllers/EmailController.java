@@ -14,8 +14,10 @@ public class EmailController {
     public EmailController(UserService userService, EmailService emailService) {
         this.emailService = emailService;
     }
-    @PostMapping("/sendMail")
+    @PostMapping("/sendmail")
     public boolean sendMail(@RequestBody EmailDto emailDto){
+        System.out.println(emailDto.getEmail());
+        System.out.println(emailDto.getUserId());
         return emailService.sendMail(emailDto);
     }
     @PostMapping("/rePassword")    // 이메일 재설정
