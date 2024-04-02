@@ -35,6 +35,7 @@ public class PostService {
     }
 
     public Post detailPost(int uid){
+        System.out.println(postMapper.detailPost(uid));
         return postMapper.detailPost(uid);
     }
 
@@ -50,6 +51,7 @@ public class PostService {
                         .title(writeDto.getTitle())
                         .content(writeDto.getContent())
                         .build();
+
         postMapper.updatePost(post);
     }
 

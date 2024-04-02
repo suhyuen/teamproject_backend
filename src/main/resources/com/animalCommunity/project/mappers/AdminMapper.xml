@@ -5,18 +5,46 @@
 <mapper namespace="com.animalCommunity.project.mappers.AdminMapper">
 
     <insert id="adminWrite">
-        INSERT INTO post_tb(user_uid, page_uid, title, content)
-        VALUES(#{userUid}, #{pageUid}, #{title}, #{content})
+        INSERT INTO post_tb(user_uid, page_uid, main_uid, title, content, viewer)
+        VALUES(#{userUid}, #{pageUid}, #{mainUid}, #{title}, #{content}, 0)
     </insert>
     <update id="updateAdminPost">
         UPDATE post_tb
-        SET page_uid = #{pageUid}, title = #{title}, content = #{content}
+        SET page_uid = #{pageUid}, main_uid = #{mainUid}, title = #{title}, content = #{content}
         WHERE uid = #{uid}
     </update>
-
     <update id="deleteAdminPost">
         UPDATE post_tb
         SET deleteyn = 'y'
         WHERE uid = #{uid}
     </update>
+    <resultMap id="adminResultMap" type="com.animalCommunity.project.models.Admin">
+        <result property="uid" column="uid" />
+        <result property="userUid" column="user_uid" />
+        <result property="nickname" column="nickname" />
+        <result property="pageUid" column="page_uid" />
+        <result property="title" column="title" />
+        <result property="content" column="content" />
+        <result property="viewer" column="viewer" />
+        <result property="createdAt" column="created_at" />
+        <result property="deleteyn" column="deleteyn" />
+    </resultMap>
+    <select id="selectAdminPost" resultMap="adminResultMap">
+        SELECT p.uid, p.user_uid, u.nickname, p.page_uid, p.main_uid, p.title, p.content, p.viewer, p.created_at, p.deleteyn
+        FROM post_tb p
+        JOIN users_tb u ON p.user_uid = u.uid
+        WHERE p.page_uid = 1 AND p.deleteyn = "N"
+        ORDER BY p.uid DESC;
+    </select>
+    <select id="selectAdminPostTip" resultMap="adminResultMap">
+        SELECT p.uid, p.user_uid, u.nickname, p.page_uid, p.main_uid, p.title, p.content, p.viewer, p.created_at, p.deleteyn
+        FROM post_tb p
+        JOIN users_tb u ON p.user_uid = u.uid
+        WHERE p.page_uid = 5 AND p.deleteyn = "N"
+    </select>
+    <select id="selectDetailAdminPost" resultMap="adminResultMap">
+        SELECT uid, user_uid, page_uid, title, content, viewer, created_at, deleteyn
+        FROM post_tb
+        WHERE uid = #{uid} AND deleteyn = "N"
+    </select>
 </mapper>
