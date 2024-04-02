@@ -6,4 +6,7 @@
     <update id="rePassword"> <!--  메일 재설정  -->
         update users_tb set pw = #{newPassword} where id = #{userId};
     </update>
+    <select id="userCheck">  <!--  id와 메일이 동일한 유저가 있는지 찾음  -->
+        select id from users_tb where id = #{userId} and email = #{email}
+    </select>
 </mapper>
