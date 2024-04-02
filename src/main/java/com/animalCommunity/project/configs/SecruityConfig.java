@@ -62,6 +62,9 @@ public class SecruityConfig {
                 .requestMatchers(HttpMethod.GET,"/detailpost/comments").permitAll()
                 .requestMatchers(HttpMethod.POST,"/commentUpdate").permitAll()
                 .requestMatchers(HttpMethod.POST,"/detailpost/{uid}/comments").hasAnyAuthority("ROLE_USER")
+                .requestMatchers(HttpMethod.GET,"/notice").permitAll()
+                .requestMatchers(HttpMethod.GET,"/homenotice").permitAll()
+                .requestMatchers(HttpMethod.GET,"/tip").permitAll()
                 .anyRequest().authenticated());
         return http.build();
     }
